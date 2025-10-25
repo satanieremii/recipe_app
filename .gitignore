@@ -12,3 +12,4 @@ recipes.db
 # Environment files / secrets
 .env
 instance/
+.env
