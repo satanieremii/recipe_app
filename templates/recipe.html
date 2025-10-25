@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ recipe.title }}</h1>
+<p>{{ recipe.description }}</p>
+<a href="{{ url_for('index') }}">Back to all recipes</a>
+{% endblock %}

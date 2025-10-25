@@ -1,0 +1,14 @@
+# Python / virtualenv
+venv/
+__pycache__/
+*.pyc
+
+# SQLite db
+recipes.db
+
+# VSCode
+.vscode/
+
+# Environment files / secrets
+.env
+instance/

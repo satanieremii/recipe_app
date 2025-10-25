@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Search Recipes{% endblock %}
+
+{% block content %}
+<h1>Search Recipes</h1>
+<form method="GET">
+    <input type="text" name="q" placeholder="Search by title">
+    <input type="submit" value="Search">
+</form>
+
+{% if rows %}
+<ul class="recipe-list">
+    {% for r in rows %}
+    <li>
+        <h2>{{ r.title }}</h2>
+        <a href="{{ url_for('view_recipe', recipe_id=r.id) }}">View</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
