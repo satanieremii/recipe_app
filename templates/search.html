@@ -1,21 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Search Recipes{% endblock %}
+{% block title %}Search{% endblock %}
 
 {% block content %}
-<h1>Search Recipes</h1>
-<form method="GET">
-    <input type="text" name="q" placeholder="Search by title">
-    <input type="submit" value="Search">
+<h1>Search</h1>
+
+{% if demo_enabled %}
+  <div class="warning">
+    <strong>Demo mode:</strong> vulnerable search is enabled (for local demonstration only).
+    {% if demo_route == 'search_vuln' %}
+      The form below posts to the vulnerable endpoint <code>/search_vuln</code>.
+    {% endif %}
+  </div>
+{% endif %}
+
+<form method="GET" action="{{ url_for(demo_route) }}">
+  <input type="text" name="q" value="{{ request.args.get('q','') }}" placeholder="Search by title" />
+  {% if demo_enabled and demo_route == 'search_vuln' %}
+    <input type="submit" value="Search (vulnerable demo)">
+  {% else %}
+    <input type="submit" value="Search (safe)">
+  {% endif %}
 </form>
 
+<hr />
+
 {% if rows %}
-<ul class="recipe-list">
+  <ul class="recipe-list">
     {% for r in rows %}
-    <li>
-        <h2>{{ r.title }}</h2>
-        <a href="{{ url_for('view_recipe', recipe_id=r.id) }}">View</a>
-    </li>
+      <li>
+        <h3>{{ r.title }}</h3>
+        <p>{{ r.description }}</p>
+      </li>
     {% endfor %}
-</ul>
+  </ul>
+{% else %}
+  <p>No results</p>
 {% endif %}
 {% endblock %}

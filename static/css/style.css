@@ -94,3 +94,10 @@ ul.recipe-list li a {
 ul.recipe-list li a:hover {
     text-decoration: underline;
 }
+
+.warning {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}

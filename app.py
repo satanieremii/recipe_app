@@ -3,10 +3,14 @@ from models import db, User, Recipe
 from forms import RegistrationForm, LoginForm, RecipeForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import text
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'change_this_in_prod'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
+
+# Feature flag: enable demo vulnerable route only when env var set
+DEMO_SQLI_ENABLED = os.getenv("ENABLE_DEMO_SQLI", "0") == "1"
 
 db.init_app(app)
 
@@ -68,16 +72,29 @@ def view_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
     return render_template('recipe.html', recipe=recipe)
 
-@app.route('/search_safe')
+# --- Safe search (always registered) ---
+@app.route('/search_safe', methods=['GET'])
 def search_safe():
-    q = request.args.get('q', '')
+    q = request.args.get('q', '').strip()
     rows = []
     if q:
-        sql = text("SELECT id, title FROM recipe WHERE title LIKE :pattern")
+        sql = text("SELECT id, title, description FROM recipe WHERE title LIKE :pattern")
         pattern = f"%{q}%"
         result = db.session.execute(sql, {"pattern": pattern}).fetchall()
-        rows = [{'id': r[0], 'title': r[1]} for r in result]
-    return render_template('search.html', rows=rows)
+        rows = [{'id': r[0], 'title': r[1], 'description': r[2]} for r in result]
+    # demo_enabled и demo_route передаются в шаблон
+    return render_template('search.html', rows=rows, demo_enabled=DEMO_SQLI_ENABLED, demo_route='search_safe')
+
+# --- Vulnerable demo (registered only if flag enabled) ---
+if DEMO_SQLI_ENABLED:
+    @app.route('/search_vuln', methods=['GET'])
+    def search_vuln():
+        q = request.args.get('q', '')
+        raw_sql = f"SELECT id, title, description FROM recipe WHERE title LIKE '%{q}%'"
+        result = db.session.execute(text(raw_sql)).fetchall()
+        rows = [{'id': r[0], 'title': r[1], 'description': r[2]} for r in result]
+        return render_template('search.html', rows=rows, demo_enabled=DEMO_SQLI_ENABLED, demo_route='search_vuln')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
