@@ -1,103 +1,16 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f8f8f8;
-    color: #333;
-}
-
-nav {
-    margin-bottom: 20px;
-}
-
-nav a {
-    margin-right: 15px;
-    text-decoration: none;
-    color: #2c3e50;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-h1, h2 {
-    color: #34495e;
-}
-
-.flash-messages {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-.flash-messages li {
-    background-color: #e1f5fe;
-    border-left: 4px solid #039be5;
-    padding: 8px 12px;
-    margin-bottom: 5px;
-}
-
-form div {
-    margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="password"],
-textarea {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button, input[type="submit"] {
-    padding: 8px 15px;
-    background-color: #039be5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover, input[type="submit"]:hover {
-    background-color: #0277bd;
-}
-
-ul.recipe-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul.recipe-list li {
-    background-color: white;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-ul.recipe-list li h2 {
-    margin: 0 0 5px 0;
-    color: #039be5;
-}
-
-ul.recipe-list li p {
-    margin: 0 0 5px 0;
-}
-
-ul.recipe-list li a {
-    font-size: 0.9em;
-    color: #0277bd;
-    text-decoration: none;
-}
-
-ul.recipe-list li a:hover {
-    text-decoration: underline;
-}
-
-.warning {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 8px 12px;
-  margin-bottom: 12px;
-}
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 0; padding: 0; background: #f8f9fa; color: #222; }
+.nav { background: #fff; padding: 12px 16px; border-bottom: 1px solid #eee; }
+.nav a { margin-right: 10px; text-decoration: none; color: #333; }
+.container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+.card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 16px; padding: 12px; }
+.meta { color: #666; font-size: 0.9rem; margin-bottom: 8px; }
+.thumb { max-width: 180px; display: block; margin-top: 8px; border-radius: 6px; }
+.large-img { max-width: 100%; height: auto; border-radius: 6px; margin-bottom: 12px; }
+.warning { background: #fff3cd; padding: 8px 12px; border-left: 4px solid #ffc107; margin: 12px 0; }
+.form-group { margin-bottom: 12px; }
+.input { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ddd; }
+.btn { background: #0d6efd; color: #fff; padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; }
+.flash { padding: 8px 12px; border-radius: 6px; margin: 8px 0; }
+.flash.success { background: #d1e7dd; color: #0f5132; }
+.flash.warning { background: #fff3cd; color: #664d03; }
+.flash.danger { background: #f8d7da; color: #842029; }

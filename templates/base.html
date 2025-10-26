@@ -6,26 +6,30 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <nav>
+  <nav class="nav">
     <a href="{{ url_for('index') }}">Home</a> |
-    <a href="{{ url_for('add_recipe') }}">Add Recipe</a> |
+    <a href="{{ url_for('add_recipe') }}">Add</a> |
     <a href="{{ url_for('search_safe') }}">Search</a> |
     {% if session.get('user_id') %}
       <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}
-      <a href="{{ url_for('register') }}">Register</a> |
-      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('login') }}">Login</a> |
+      <a href="{{ url_for('register') }}">Register</a>
     {% endif %}
   </nav>
-  {% with messages = get_flashed_messages() %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class="flash-messages">
-        {% for m in messages %}
-          <li>{{ m }}</li>
-        {% endfor %}
-      </ul>
+      <div class="messages">
+      {% for category, msg in messages %}
+        <div class="flash {{ category }}">{{ msg }}</div>
+      {% endfor %}
+      </div>
     {% endif %}
   {% endwith %}
-  {% block content %}{% endblock %}
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>

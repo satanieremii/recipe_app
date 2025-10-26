@@ -2,33 +2,24 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-<h1>Search</h1>
+<h1>Search Recipes</h1>
 
-{% if demo_enabled %}
+<form method="GET" action="{{ url_for(demo_route if demo_enabled else 'search_safe') }}">
+  <input type="text" name="q" value="{{ request.args.get('q','') }}" placeholder="Search by title">
+  <button type="submit">Search</button>
+</form>
+
+{% if demo_enabled and demo_route == 'search_vuln' %}
   <div class="warning">
-    <strong>Demo mode:</strong> vulnerable search is enabled (for local demonstration only).
-    {% if demo_route == 'search_vuln' %}
-      The form below posts to the vulnerable endpoint <code>/search_vuln</code>.
-    {% endif %}
+    <strong>Demo mode:</strong> vulnerable search is enabled (local demo only).
   </div>
 {% endif %}
 
-<form method="GET" action="{{ url_for(demo_route) }}">
-  <input type="text" name="q" value="{{ request.args.get('q','') }}" placeholder="Search by title" />
-  {% if demo_enabled and demo_route == 'search_vuln' %}
-    <input type="submit" value="Search (vulnerable demo)">
-  {% else %}
-    <input type="submit" value="Search (safe)">
-  {% endif %}
-</form>
-
-<hr />
-
 {% if rows %}
-  <ul class="recipe-list">
+  <ul class="results">
     {% for r in rows %}
       <li>
-        <h3>{{ r.title }}</h3>
+        <a href="{{ url_for('view_recipe', recipe_id=r.id) }}">{{ r.title }}</a>
         <p>{{ r.description }}</p>
       </li>
     {% endfor %}
