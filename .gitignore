@@ -1,15 +1,11 @@
-# Python / virtualenv
 venv/
-__pycache__/
 *.pyc
-
-# SQLite db
+__pycache__/
 recipes.db
-
-# VSCode
-.vscode/
-
-# Environment files / secrets
-.env
 instance/
+*.sqlite3
+*.log
+/.env
+static/uploads/
 .env
+.DS_Store
