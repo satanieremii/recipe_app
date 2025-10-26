@@ -72,6 +72,7 @@ python app.py
 ```
 
 Project structure
+```
 recipe_app/
 ├─ app.py
 ├─ models.py

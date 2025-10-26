@@ -9,4 +9,3 @@ instance/
 static/uploads/
 .env
 .DS_Store
-.env
